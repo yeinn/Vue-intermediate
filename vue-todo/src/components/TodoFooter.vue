@@ -7,8 +7,7 @@
 export default {
     methods:{
         clearTodo: function(){
-            //로컬스토리지 초기화 API
-            localStorage.clear()
+            this.$emit('clearAll')
         }
     }
 }

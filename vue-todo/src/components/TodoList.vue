@@ -2,8 +2,10 @@
     <div>
         <ul>
             <!-- todoItems에 저장된 데이터 출력 / v-for의 내장 인덱스 사용 -->
-            <li v-for="todoItem,index in todoItems" v-bind:key="todoItem.item" class="shadow">
-                <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompeleted:todoItem.complete}" v-on:click="toggleComplete(todoItem,index)"></i>
+            <li v-for="(todoItem,index) in propsdata" v-bind:key="todoItem.item" class="shadow">
+                <i class="checkBtn fas fa-check"
+                    v-bind:class="{checkBtnCompeleted:todoItem.complete}"
+                    v-on:click="toggleComplete(todoItem,index)"></i>
                 <span v-bind:class="{textCompleted:todoItem.complete}">{{todoItem.item}}</span>
                 <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
                     <i class="fas fa-trash-alt"></i>
@@ -15,36 +17,16 @@
 </template>
 <script>
 export default {
-    data: function(){
-        return {
-            todoItems:[]
-        }
-    },
+    props: ['propsdata'],
     methods: {
         //리스트 삭제 메소드
         removeTodo: function(todoItem,index){
-            //로컬스토리지 삭제 함수 removeItem
-            localStorage.removeItem(todoItem);
-            //js 배열 삭제 splice (특정인덱스,개수 삭제) / slice는 삭제된 새로운 배열 반환
-            this.todoItems.splice(index,1);
+            //부모 컴포넌트에 데이터 전달 이벤트
+            this.$emit('removeItem',todoItem,index)
         },
         toggleComplete: function(todoItem,index){
-            todoItem.complete=!todoItem.complete;
-            //로컬스토리지 해당 데이터 삭제 후 재 추가
-            localStorage.removeItem(todoItem.item);
-            localStorage.setItem(todoItem.item,JSON.stringify(todoItem))
+           this.$emit('toggleItem',todoItem, index)
         }
-    },
-    created: function(){
-        //로컬 스토리지 값 담기
-    if(localStorage.length>0){
-        for (var i=0; i<localStorage.length; i++){
-            //로컬 스토리지의 기본 저장값 제외
-            if(localStorage.key(i)!=='loglevel:webpack-dev-server')
-            //꺼내온 string type value를 json형태로 변환 
-            this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
-        }
-    }
     }
 }
 </script>

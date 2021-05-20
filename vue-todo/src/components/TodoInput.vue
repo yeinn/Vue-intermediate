@@ -8,19 +8,15 @@
 export default {
     data: function(){
         return {
-            newTodoItem:""
+            newTodoItem:''
         }
     },
     methods:{
         addTodo:function(){
-            if (newTodoItem!=''){
-            //완료 여부 데이터 객체
-            var obj={complete: false, item:this.newTodoItem}
+            if (this.newTodoItem!==''){
+            //상위 컴포넌트에 데이터 전송
+            this.$emit('addTodoItem',this.newTodoItem)
 
-            //this => 현재 vue인스턴스에 등록되어있는 this
-            //저장 로직 수행 setItem 함수
-            //JSON.stringify(obj) API => js객체를 스트링으로 변환
-            localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
             this.clearInput()
             }
         },
