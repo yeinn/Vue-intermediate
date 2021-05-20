@@ -1,7 +1,6 @@
 <template lang="">
     <div class="inputBox shadow">
         <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
-        <!-- <button v-on:click="addTodo">add</button> -->
         <span class="addContainer" v-on:click="addTodo"><i class="fas fa-plus addBtn"></i></span>
     </div>
 </template>
@@ -14,10 +13,16 @@ export default {
     },
     methods:{
         addTodo:function(){
+            if (newTodoItem!=''){
+            //완료 여부 데이터 객체
+            var obj={complete: false, item:this.newTodoItem}
+
             //this => 현재 vue인스턴스에 등록되어있는 this
             //저장 로직 수행 setItem 함수
-            localStorage.setItem(this.newTodoItem,this.newTodoItem);
-            this.clearInput()    
+            //JSON.stringify(obj) API => js객체를 스트링으로 변환
+            localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
+            this.clearInput()
+            }
         },
         clearInput:function(){
         //input 초기화
