@@ -2,13 +2,28 @@
     <div class="inputBox shadow">
         <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
         <span class="addContainer" v-on:click="addTodo"><i class="fas fa-plus addBtn"></i></span>
+    
+        <Modal v-if="showModal" @close="showModal = false">
+        <!-- 특정컴포넌트의 일부를 재사용 = slot -->
+        <h3 slot="header">※ 경고
+        <i class="closeModalBtn fas fa-times" @click="showModal=false"></i></h3>
+
+        <div slot="body">빈 값은 추가할 수 없습니다.</div>
+
+        <div slot="footer">copyright 2021 최예인</div>
+
+         </Modal>
+    
     </div>
 </template>
 <script>
+import Modal from './common/Modal.vue'
+
 export default {
     data: function(){
         return {
-            newTodoItem:''
+            newTodoItem:'',
+            showModal: false
         }
     },
     methods:{
@@ -16,14 +31,19 @@ export default {
             if (this.newTodoItem!==''){
             //상위 컴포넌트에 데이터 전송
             this.$emit('addTodoItem',this.newTodoItem)
-
             this.clearInput()
+            }
+            else{
+                this.showModal=!this.showModal
             }
         },
         clearInput:function(){
         //input 초기화
             this.newTodoItem=''
         }
+    },
+    components:{
+        Modal:Modal
     }
 }
 </script>
@@ -53,6 +73,9 @@ input:focus{
     color: white;
     vertical-align: middle;
     cursor: pointer;
+}
+.closeModalBtn{
+    color: #42b983;
 }
 
     
