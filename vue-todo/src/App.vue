@@ -23,7 +23,7 @@ export default {
         addOneItem: function(todoItem){
           //완료 여부 데이터 객체
           //하위 컴포넌트에서 받은 값 todoItem
-            var obj={complete: false, item:todoItem}
+            const obj={complete: false, item:todoItem}
             //this => 현재 vue인스턴스에 등록되어있는 this
             //저장 로직 수행 setItem 함수
             //JSON.stringify(obj) API => js객체를 스트링으로 변환
@@ -53,7 +53,7 @@ export default {
      created: function(){
         //로컬 스토리지 값 담기
         if(localStorage.length>0){
-            for (var i=0; i<localStorage.length; i++){
+            for (let i=0; i<localStorage.length; i++){
                 //로컬 스토리지의 기본 저장값 제외
                 if(localStorage.key(i)!=='loglevel:webpack-dev-server')
                 //꺼내온 string type value를 json형태로 변환 
