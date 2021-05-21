@@ -1,7 +1,7 @@
 <template>
   <div id="app">
    <TodoHeader></TodoHeader>
-   <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
+   <TodoInput></TodoInput>
    <TodoList v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></TodoList>
    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
   </div>
@@ -20,16 +20,6 @@ export default {
         }
       },
       methods: {
-        addOneItem(todoItem){
-          //완료 여부 데이터 객체
-          //하위 컴포넌트에서 받은 값 todoItem
-            const obj={complete: false, item:todoItem}
-            //this => 현재 vue인스턴스에 등록되어있는 this
-            //저장 로직 수행 setItem 함수
-            //JSON.stringify(obj) API => js객체를 스트링으로 변환
-            localStorage.setItem(todoItem,JSON.stringify(obj));
-            this.todoItems.push(obj);
-        },
         removeOneItem(todoItem,index){
           console.log(todoItem.item )
             //로컬스토리지 삭제 함수 removeItem
@@ -50,17 +40,6 @@ export default {
         }
 
       },
-     created(){
-        //로컬 스토리지 값 담기
-        if(localStorage.length>0){
-            for (let i=0; i<localStorage.length; i++){
-                //로컬 스토리지의 기본 저장값 제외
-                if(localStorage.key(i)!=='loglevel:webpack-dev-server')
-                //꺼내온 string type value를 json형태로 변환 
-                this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
-            }
-        }
-    },
   components:{
     TodoHeader,
     TodoInput,

@@ -29,8 +29,10 @@ export default {
     methods:{
         addTodo(){
             if (this.newTodoItem!==''){
-            //상위 컴포넌트에 데이터 전송
-            this.$emit('addTodoItem',this.newTodoItem)
+            //store의 mutation 동작
+            // this.$emit('addTodoItem',this.newTodoItem)
+            const text=this.newTodoItem.trim()
+            this.$store.commit('addOneItem',text)
             this.clearInput()
             }
             else{

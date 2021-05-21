@@ -2,7 +2,7 @@
     <div>
         <ul>
             <!-- todoItems에 저장된 데이터 출력 / v-for의 내장 인덱스 사용 -->
-            <li v-for="(todoItem,index) in propsdata" v-bind:key="todoItem.item" class="shadow">
+            <li v-for="(todoItem,index) in this.$store.state.todoItems" v-bind:key="todoItem.item" class="shadow">
                 <i class="checkBtn fas fa-check"
                     v-bind:class="{checkBtnCompeleted:todoItem.complete}"
                     v-on:click="toggleComplete(todoItem,index)"></i>
@@ -17,7 +17,6 @@
 </template>
 <script>
 export default {
-    props: ['propsdata'],
     methods: {
         //리스트 삭제 메소드
         removeTodo(todoItem,index){
