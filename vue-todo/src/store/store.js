@@ -26,6 +26,11 @@ export const store = new Vuex.Store({
     state:{
         todoItems:storage.fetch()
     },
+    getters:{
+        storedTodoItems(state){
+            return state.todoItems
+        }
+    },
     mutations:{
         addOneItem(state,todoItem){
         //완료 여부 데이터 객체

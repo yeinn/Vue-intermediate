@@ -2,12 +2,12 @@
     <div>
         <ul>
             <!-- todoItems에 저장된 데이터 출력 / v-for의 내장 인덱스 사용 -->
-            <li v-for="(todoItem,index) in this.$store.state.todoItems" v-bind:key="todoItem.item" class="shadow">
+            <li v-for="(todoItem,index) in this.todoItems " v-bind:key="todoItem.item" class="shadow">
                 <i class="checkBtn fas fa-check"
                     v-bind:class="{checkBtnCompeleted:todoItem.complete}"
-                    v-on:click="toggleComplete(todoItem,index)"></i>
+                    v-on:click="toggleComplete({todoItem,index})"></i>
                 <span v-bind:class="{textCompleted:todoItem.complete}">{{todoItem.item}}</span>
-                <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+                <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
                     <i class="fas fa-trash-alt"></i>
                 </span>
 
@@ -16,16 +16,20 @@
     </div>
 </template>
 <script>
+import {mapGetters,mapMutations} from 'vuex';
+
 export default {
     methods: {
-        //리스트 삭제 메소드
-        removeTodo(todoItem,index){
-            //부모 컴포넌트에 데이터 전달 이벤트
-            this.$store.commit('removeOneItem',{todoItem, index})
-        },
-        toggleComplete(todoItem,index){
-           this.$store.commit('toggleOneItem',{todoItem,index})
-        }
+        ...mapMutations({
+            removeTodo:'removeOneItem',
+            toggleComplete:'toggleOneItem'
+        }),
+    },
+    computed:{
+        ...mapGetters({
+            todoItems:'storedTodoItems'
+        })
+
     }
 }
 </script>
