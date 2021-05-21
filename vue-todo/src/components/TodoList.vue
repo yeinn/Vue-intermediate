@@ -21,10 +21,10 @@ export default {
         //리스트 삭제 메소드
         removeTodo(todoItem,index){
             //부모 컴포넌트에 데이터 전달 이벤트
-            this.$emit('removeItem',todoItem,index)
+            this.$store.commit('removeOneItem',{todoItem, index})
         },
         toggleComplete(todoItem,index){
-           this.$emit('toggleItem',todoItem, index)
+           this.$store.commit('toggleOneItem',{todoItem,index})
         }
     }
 }
