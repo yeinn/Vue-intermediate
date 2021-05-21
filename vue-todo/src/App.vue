@@ -14,13 +14,13 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 
 export default {
-      data: function(){
+      data(){
         return {
           todoItems: [],
         }
       },
       methods: {
-        addOneItem: function(todoItem){
+        addOneItem(todoItem){
           //완료 여부 데이터 객체
           //하위 컴포넌트에서 받은 값 todoItem
             const obj={complete: false, item:todoItem}
@@ -30,27 +30,27 @@ export default {
             localStorage.setItem(todoItem,JSON.stringify(obj));
             this.todoItems.push(obj);
         },
-        removeOneItem: function(todoItem,index){
+        removeOneItem(todoItem,index){
           console.log(todoItem.item )
             //로컬스토리지 삭제 함수 removeItem
             localStorage.removeItem(todoItem.item);
             //js 배열 삭제 splice (특정인덱스,개수 삭제) / slice는 삭제된 새로운 배열 반환
             this.todoItems.splice(index,1);
         },
-        toggleOneItem:function(todoItem,index){
+        toggleOneItem(todoItem,index){
            this.todoItems[index].complete=!this.todoItems[index].complete
             //로컬스토리지 해당 데이터 삭제 후 재 추가
             localStorage.removeItem(todoItem.item);
             localStorage.setItem(todoItem.item,JSON.stringify(todoItem))
         },
-        clearAllItems: function(){
+        clearAllItems(){
             //로컬스토리지 초기화 API
             localStorage.clear()
             this.todoItems=[]
         }
 
       },
-     created: function(){
+     created(){
         //로컬 스토리지 값 담기
         if(localStorage.length>0){
             for (let i=0; i<localStorage.length; i++){
@@ -62,10 +62,10 @@ export default {
         }
     },
   components:{
-    'TodoHeader':TodoHeader,
-    'TodoInput':TodoInput,
-    'TodoList':TodoList,
-    'TodoFooter':TodoFooter
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter
     }
 }
 </script>

@@ -20,11 +20,11 @@ export default {
     props: ['propsdata'],
     methods: {
         //리스트 삭제 메소드
-        removeTodo: function(todoItem,index){
+        removeTodo(todoItem,index){
             //부모 컴포넌트에 데이터 전달 이벤트
             this.$emit('removeItem',todoItem,index)
         },
-        toggleComplete: function(todoItem,index){
+        toggleComplete(todoItem,index){
            this.$emit('toggleItem',todoItem, index)
         }
     }
